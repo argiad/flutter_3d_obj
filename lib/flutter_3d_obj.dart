@@ -36,19 +36,19 @@ class Object3D extends StatefulWidget {
 
 class _Object3DState extends State<Object3D> {
   _Object3DState() {
-    if (widget.asset == true) {
-      rootBundle.loadString(widget.path).then((String value) {
-        setState(() {
-          object = value;
-        });
-      });
-    } else {
-      File file = new File(widget.path);
-      file.readAsString().then((String value) {
-        setState(() {
-          object = value;
-        });
-      });
+//    if (widget.asset == true) {
+//      rootBundle.loadString(widget.path).then((String value) {
+//        setState(() {
+//          object = value;
+//        });
+//      });
+//    } else {
+//      File file = new File(widget.path);
+//      file.readAsString().then((String value) {
+//        setState(() {
+//          object = value;
+//        });
+//      });
     }
 
     useInternal = !(widget.angleX != null || widget.angleY != null || widget.angleZ != null);
@@ -110,6 +110,21 @@ class _Object3DState extends State<Object3D> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (widget.asset == true) {
+      rootBundle.loadString(widget.path).then((String value) {
+        setState(() {
+          object = value;
+        });
+      });
+    } else {
+      File file = new File(widget.path);
+      file.readAsString().then((String value) {
+        setState(() {
+          object = value;
+        });
+      });
+
     return new GestureDetector(
       child: new CustomPaint(
         painter: new _ObjectPainter(widget.size, object, useInternal ? angleX : widget.angleX,
